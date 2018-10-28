@@ -2,6 +2,12 @@ import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(() => {
 
+
+    Meteor.users.remove({});
+    Course.remove({});
+    Elective.remove({});
+
+
     Accounts.createUser({
         username: 'frieda',
         email: 'frieda@frieda.com',
