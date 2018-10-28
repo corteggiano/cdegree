@@ -1,0 +1,15 @@
+.logo {
+  font-family: "Exo", sans-serif;
+  color: #cc0000;
+  text-align: center;
+  margin-top: 200px;
+  font-size: 60px;
+}
+
+.logo-small {
+  font-family: "Exo", sans-serif;
+  color: #cc0000;
+  position: absolute;
+  width: 100%;
+  padding: 15px;
+}
