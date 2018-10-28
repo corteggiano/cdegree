@@ -61,6 +61,31 @@ Meteor.startup(() => {
         courses: ["ENGW 3302", "ENGW 3315"]
     });
 
+    Course.insert({
+        "id": "CS 1200",
+        "name": "Leadership Skill Development",
+        "credits": 1,
+        "prereqs": [],
+        "coreqs": [],
+        "description": "Focuses on leadership skill development to support student success in the College of Computer and Information Science and Northeastern University. Topics include ethics and accountability, leadership and communication, career development, and student helpers and resources. The course serves as a shared experience for students to make connections with faculty, staff, and students within CCIS and the Northeastern community.",
+    });
 
+    Course.insert({
+        "id": "CS 1210",
+        "name": "Professional Development for CCIS Co-op",
+        "credits": 1,
+        "prereqs": [],
+        "coreqs": [],
+        "description": "Continues the preparation of students for careers in the computing and information fields by discussing co-op and co-op processes. Offers students an opportunity to prepare a professional résumé; practice proper interviewing techniques; explore current job opportunities; learn how to engage in the job and referral process; and to understand co-op policies, procedures, and expectations. Discusses professional behavior and ethical issues in the workplace.",
+    });
+
+    Course.insert({
+        "id": "CS 1800",
+        "name": "Discrete Structures",
+        "credits": 4,
+        "prereqs": [],
+        "coreqs": ["CS 1802"],
+        "description": "Introduces the mathematical structures and methods that form the foundation of computer science. Studies structures such as sets, tuples, sequences, lists, trees, and graphs. Discusses functions, relations, ordering, and equivalence relations. Examines inductive and recursive definitions of structures and functions. Discusses principles of proof such as truth tables, inductive proof, and basic logic. Also covers the counting techniques and arguments needed to estimate the size of sets, the growth of functions, and the space-time complexity of algorithms.",
+    });
 
 });
