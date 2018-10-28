@@ -1,12 +1,14 @@
-<<<<<<< Updated upstream
-=======
 @import url("login.css");
 
 * {
   overflow: hidden !important;
+  font-family: "Roboto", sans-serif;
 }
 
->>>>>>> Stashed changes
+.logo {
+  font-family: "Exo", sans-serif;
+}
+
 body {
   padding: 10px;
   font-family: "Roboto", sans-serif;
