@@ -1,8 +1,14 @@
+@import url("logo.css");
 @import url("login.css");
+@import url("choose-degree.css");
 
 * {
-  overflow: hidden !important;
+  box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+}
+
+html {
+  height: 100%;
 }
 
 .logo {
