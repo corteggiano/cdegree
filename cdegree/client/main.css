@@ -1,4 +1,7 @@
+@import url("login.css");
+
 * {
+  overflow: hidden !important;
   font-family: "Roboto", sans-serif;
 }
 
@@ -8,5 +11,6 @@
 
 body {
   padding: 10px;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-color: #efefef;
 }
