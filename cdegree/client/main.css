@@ -1,4 +1,14 @@
+<<<<<<< Updated upstream
+=======
+@import url("login.css");
+
+* {
+  overflow: hidden !important;
+}
+
+>>>>>>> Stashed changes
 body {
   padding: 10px;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-color: #efefef;
 }
