@@ -25,7 +25,7 @@ Meteor.startup(() => {
     // Altering the User data structure, the completedElectives field
     // will hold some kind of pair from elective id to the class used to
     // satisfy it. Also, although we're displaying completed and in progress
-    // the same for the most part, we should store them separately to we know
+    // the same for the most part, we should store them separately so we know
     // how to differentiate them
     // TODO we should re-evaluate how we handle the NUPath thing, I think we
     // should make that a dict of ele
@@ -57,7 +57,8 @@ Meteor.startup(() => {
             capstone: ["CS 4550", "CS 4100"],
         },
         name: "Bachelor of Science in Computer Science",
-        semesterHoursRequired: 135
+        semesterHoursRequired: 135,
+        description: "The Bachelor of Science in Computer Science focuses on the fundamentals of program design, software development, computer organization, systems and networks, theories of computation, principles of languages, and advanced algorithms and data. The bachelor's degree in computer science is also offered with a concentration in cyber operations."
     });
 
     //Add all degrees
@@ -72,7 +73,8 @@ Meteor.startup(() => {
             capstone: ["CS 4550", "CS 4100"],
         },
         name: "Bachelor of Science in Information Science",
-        semesterHoursRequired: 132
+        semesterHoursRequired: 132,
+        description: "The program combines concepts and skills from computer science, behavioral and social sciences, and system design into an integrated curriculum that is focused on people. The course work covers information architecture; information system design and development; programming and software design; database design; systems and networks; information resource management; social informatics; quantitative and qualitative research methods; and human computer interaction.\nAlthough there is no sharp boundary between computer science and information science, it may be said that CS is concerned with building the software and services infrastructure used by people and organizations worldwide, whereas IS is concerned with the information and software needs of a particular business, healthcare provider, government agency, or nonprofit.",
     });
 
     //Add all Electives
