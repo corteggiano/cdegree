@@ -18,20 +18,31 @@ Meteor.startup(() => {
         }
     });
 
+    // Altering the User data structure, the completedElectives field
+    // will hold some kind of pair from elective id to the class used to
+    // satisfy it
     Accounts.createUser({
         username: 'ursula',
         email: 'usursula@ursula.com',
         password: 'ursula',
         profile: {
-            completedCourses: ["CS1200"],
-            degree: 'BSCS',
+            completedReqCourses: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
+            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801",
+            "ENGW 1111", "MATH 1341", "CS 3800", "CS 3650"],
+            completedElectives: {},
+            degree: "Bachelor of Science in Computer Science",
+            capstone: null
         }
     });
 
     //Add all degrees
     Degree.insert({
         sections: {
-            majorRequirements: ["CS 1200", "CS 1210", "CS 1800", "CS 1802", "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801", "CS 3000", "CS 3500", "CS 3650", "CS 3700", "CS 3800", "CS 4400", "CS 4500", "CS 4501", "THTR 1170", "MATH 1341", "MATH 1342", "MATH 2331", "MATH 3081", "EECE 2160", "ENGW 1111"],
+            majorRequirements: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
+            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801",
+            "CS 3000", "CS 3500", "CS 3650", "CS 3700", "CS 3800", "CS 4400",
+            "CS 4500", "CS 4501", "THTR 1170", "MATH 1341", "MATH 1342",
+            "MATH 2331", "MATH 3081", "EECE 2160", "ENGW 1111"],
             electives: [1, 1, 2, 2, 3, 4],
             capstone: ["CS 4550", "CS 4100"],
         },
