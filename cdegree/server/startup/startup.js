@@ -29,9 +29,10 @@ Meteor.startup(() => {
             completedReqCourses: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
             "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801",
             "ENGW 1111", "MATH 1341", "CS 3800", "CS 3650"],
-            completedElectives: {},
+            completedElectives: [[1, "CS 4550"]],
             degree: "Bachelor of Science in Computer Science",
-            capstone: null
+            capstone: null,
+            
         }
     });
 
