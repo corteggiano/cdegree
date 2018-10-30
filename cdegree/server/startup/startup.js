@@ -13,26 +13,35 @@ Meteor.startup(() => {
         email: 'frieda@frieda.com',
         password: 'frieda',
         profile: {
-            completedCourses: [],
-            degree: 'BSCS',
+            completedReqCourses: [],
+            inProgressCourses: ["CS 1200", "CS 1800", "CS 2500", "CS 2501", "ENGW 1111"],
+            completedElectives: [],
+            degree: "Bachelor of Science in Computer Science",
+            capstone: null,
+            fulfilledNUPath: false
         }
     });
 
     // Altering the User data structure, the completedElectives field
     // will hold some kind of pair from elective id to the class used to
-    // satisfy it
+    // satisfy it. Also, although we're displaying completed and in progress
+    // the same for the most part, we should store them separately to we know
+    // how to differentiate them
+    // TODO we should re-evaluate how we handle the NUPath thing, I think we
+    // should make that a dict of ele
     Accounts.createUser({
         username: 'ursula',
         email: 'usursula@ursula.com',
         password: 'ursula',
         profile: {
             completedReqCourses: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
-            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801",
-            "ENGW 1111", "MATH 1341", "CS 3800", "CS 3650"],
-            completedElectives: [[1, "CS 4550"]],
+            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2801",
+            "ENGW 1111", "MATH 1341"],
+            inProgressCourses: ["CS 2800", "MATH 1342", "CS 3800", "CS 3650"],
+            completedElectives: [[3, "SOCL 1280"]],
             degree: "Bachelor of Science in Computer Science",
             capstone: null,
-            
+            fulfilledNUPath: false
         }
     });
 
