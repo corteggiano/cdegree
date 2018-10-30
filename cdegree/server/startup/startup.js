@@ -13,29 +13,68 @@ Meteor.startup(() => {
         email: 'frieda@frieda.com',
         password: 'frieda',
         profile: {
-            completedCourses: [],
-            degree: 'BSCS',
+            completedReqCourses: [],
+            inProgressCourses: ["CS 1200", "CS 1800", "CS 2500", "CS 2501", "ENGW 1111"],
+            completedElectives: [],
+            degree: "Bachelor of Science in Computer Science",
+            capstone: null,
+            fulfilledNUPath: false
         }
     });
 
+    // Altering the User data structure, the completedElectives field
+    // will hold some kind of pair from elective id to the class used to
+    // satisfy it. Also, although we're displaying completed and in progress
+    // the same for the most part, we should store them separately so we know
+    // how to differentiate them
+    // TODO we should re-evaluate how we handle the NUPath thing, I think we
+    // should make that a dict of ele
     Accounts.createUser({
         username: 'ursula',
         email: 'usursula@ursula.com',
         password: 'ursula',
         profile: {
-            completedCourses: ["CS1200"],
-            degree: 'BSCS',
+            completedReqCourses: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
+            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2801",
+            "ENGW 1111", "MATH 1341"],
+            inProgressCourses: ["CS 2800", "MATH 1342", "CS 3800", "CS 3650"],
+            completedElectives: [[3, "SOCL 1280"]],
+            degree: "Bachelor of Science in Computer Science",
+            capstone: null,
+            fulfilledNUPath: false
         }
     });
 
     //Add all degrees
     Degree.insert({
         sections: {
-            majorRequirements: ["CS 1200", "CS 1210", "CS 1800", "CS 1802", "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801", "CS 3000", "CS 3500", "CS 3650", "CS 3700", "CS 3800", "CS 4400", "CS 4500", "CS 4501", "THTR 1170", "MATH 1341", "MATH 1342", "MATH 2331", "MATH 3081", "EECE 2160", "ENGW 1111"],
+            majorRequirements: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
+            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 2800", "CS 2801",
+            "CS 3000", "CS 3500", "CS 3650", "CS 3700", "CS 3800", "CS 4400",
+            "CS 4500", "CS 4501", "THTR 1170", "MATH 1341", "MATH 1342",
+            "MATH 2331", "MATH 3081", "EECE 2160", "ENGW 1111"],
             electives: [1, 1, 2, 2, 3, 4],
             capstone: ["CS 4550", "CS 4100"],
         },
         name: "Bachelor of Science in Computer Science",
+        semesterHoursRequired: 135,
+        description: "The Bachelor of Science in Computer Science focuses on the fundamentals of program design, software development, computer organization, systems and networks, theories of computation, principles of languages, and advanced algorithms and data. The bachelor's degree in computer science is also offered with a concentration in cyber operations."
+    });
+
+    //Add all degrees
+    Degree.insert({
+        sections: {
+            majorRequirements: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
+            "CS 2500", "CS 2501", "CS 2510", "CS 2511", "CS 3000", "CS 3500",
+            "CS 3650", "CS 3700", "CS 3200", "IS 2000", "IS 3500", "IS 4300",
+            "PSYC 1101", "IS 4800", "IS 4900", "THTR 1170", "MATH 1341",
+            "MATH 1342", "MATH 2331", "MATH 3081", "EECE 2160", "ENGW 1111"],
+            electives: [1, 1, 3, 4, 5],
+            capstone: ["CS 4550", "CS 4100"],
+        },
+        name: "Bachelor of Science in Information Science",
+        semesterHoursRequired: 132,
+        description: "The program combines concepts and skills from computer science, behavioral and social sciences, and system design into an integrated curriculum that is focused on people. The course work covers information architecture; information system design and development; programming and software design; database design; systems and networks; information resource management; social informatics; quantitative and qualitative research methods; and human computer interaction.\nAlthough there is no sharp boundary between computer science and information science, it may be said that CS is concerned with building the software and services infrastructure used by people and organizations worldwide, whereas IS is concerned with the information and software needs of a particular business, healthcare provider, government agency, or nonprofit.",
     });
 
     //Add all Electives
@@ -61,6 +100,12 @@ Meteor.startup(() => {
         id: 4,
         name: "Advanced Writing in the Disciplines",
         courses: ["ENGW 3302", "ENGW 3315"]
+    });
+
+    Elective.insert({
+        id: 5,
+        name: "Research and Data Analysis",
+        courses: ["PSYC 2320", "ECON 2350"]
     });
 
     //ADD all courses
@@ -417,8 +462,47 @@ Meteor.startup(() => {
             "prereqs": ["MATH 1342"],
             "coreqs": [],
             "description": "Focuses on probability theory. Topics include sample space; conditional probability and independence; discrete and continuous probability distributions for one and for several random variables; expectation; variance; special distributions including binomial, Poisson, and normal distributions; law of large numbers; and central limit theorem. Also introduces basic statistical theory including estimation of parameters, confidence intervals, and hypothesis testing.",
+        },
+        {
+            "id": "IS 2000",
+            "name": "Principles of Information Science",
+            "credits": 4,
+            "prereqs": [],
+            "coreqs": [],
+            "description": "Introduces information science. Examines how information is used to solve problems both for individuals and organizations and how information systems interface with their users. Considers the technical, economic, social, and ethical issues that arise when working with information. Discusses how to collect, manage, classify, store, encode, transmit, retrieve, and evaluate data and information with appropriate security and privacy. Storage models include lists, tables, and trees (hierarchies). Examines applications of information: visualization, presentation, categorization, decision making, and predictive modeling. Introduces key concepts in probability. Explains Bayesian analysis for information classification and modeling. Teaches intensive programming in Excel, including VBA macro development. Introduces programming in R.",
+        },
+        {
+            "id": "IS 3500",
+            "name": "Information System Design and Development",
+            "credits": 4,
+            "prereqs": ["IS 2000", "CS 3500", "ENGW 1111"],
+            "coreqs": [],
+            "description": "Discusses the planning, analysis, design, and implementation of computer-based information systems, focusing on the methodologies and procedures used in organizational problem solving and systems development. Topics include the systems development life cycle; project management; requirements analysis and specification; feasibility and cost-benefit analysis; logical and physical design; prototyping; and system validation, deployment, and postimplementation review. Additional topics may include platform and database selection and integration issues; CASE tools; end-user training; maintenance; and object-oriented analysis and design.",
+        },
+        {
+            "id": "IS 4800",
+            "name": "Empirical Research Methods",
+            "credits": 4,
+            "prereqs": ["MATH 3081"],
+            "coreqs": [],
+            "description": "Evaluates and conducts empirical research, focusing on students’ use of empirical methods to study the effectiveness and organizational/social impact of information systems and technologies. Empirical research involves a number of broad steps including identifying problems; developing specific hypotheses; collecting data relevant to the hypotheses; analyzing the data; and considering alternative explanations for the empirical findings. Some of the most commonly used research techniques, such as surveys, experiments, and ethnographic methods, are discussed. Additional topics include the ethics of data collection and experimentation in behavioral science. Although the course focuses primarily on the relationship between formulating research questions and implementing the appropriate methods to answer them, students can expect to apply the statistical techniques learned in the course prerequisites.",
+        },
+        {
+            "id": "IS 4900",
+            "name": "Information Science Senior Project",
+            "credits": 4,
+            "prereqs": ["IS 4800"],
+            "coreqs": [],
+            "description": "Helps students develop a sophisticated understanding of the interaction between technology and its context. Students write an in-depth research paper that reflects upon and analyzes the observations and experiences of the field study using the information science literature to interpret and better understand those experiences. Students then participate in a seminar in which they present the results of their research.",
+        },
+        {
+            "id": "PSYC 1101",
+            "name": "Foundations of Psychology",
+            "credits": 4,
+            "prereqs": [],
+            "coreqs": [],
+            "description": "Surveys the fundamental principles, concepts, and issues in the major areas of contemporary scientific psychology. Approaches the study of psychology as a method of inquiry as well as a body of knowledge. Emphasizes the biological, behavioral, cognitive, and social factors that influence and regulate learning and motivation; personality dynamics; psychopathology and its treatment; life-span development; sensory and perceptual processes; and communication and social behaviors. The influence of cultural factors on psychological studies and theories is also explored.",
         }
-
     ];
 
     for (var i = 0; i< coursesJSON.length; i++) {
