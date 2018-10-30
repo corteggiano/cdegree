@@ -1,0 +1,18 @@
+.fa-search {
+  position: absolute;
+  margin-left: -26px;
+  margin-top: -28px;
+}
+
+.container-choose-degree {
+  margin-top: 40vh;
+  text-align: center;
+}
+
+#choose-degree {
+  width: 100%;
+}
+
+.dropdown {
+  text-align: right;
+}

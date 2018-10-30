@@ -1,0 +1,25 @@
+<template name="chooseDegree">
+    <div class="education-bg">
+        <div class="education-bg-overlay">
+            <h5 class="logo-small">cDegree</h5>
+            <div class="container-fluid">
+                <div class="col-sm-6 offset-sm-3 col-md-4 offset-md-4 container-choose-degree">
+                    <h2>Choose a Degree</h2>
+                    <div id="choose-degree-container" class="dropdown">
+                        <input type="text" placeholder="Search..." class="form-control dropdown-toggle"
+                               id="choose-degree"
+                               onkeyup="filterFunction()" onfocus="toggleDropdown()">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <div id="degree-dropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="main.html">Computer Science BS</a>
+                            <a class="dropdown-item" href="#">Computer Science and Information Science Combined BS</a>
+                            <a class="dropdown-item" href="#">Cybersecurity BS</a>
+                            <a class="dropdown-item" href="#">Data Science BS</a>
+                            <a class="dropdown-item" href="#">Information Science BS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
