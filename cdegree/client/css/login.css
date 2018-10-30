@@ -1,0 +1,25 @@
+.login-btn {
+  background-color: #01baef;
+  color: white;
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.login-btn:hover,
+:active {
+  text-decoration: none;
+  color: white;
+}
+
+.education-bg {
+  background-image: url("../images/educationBg.png");
+}
+
+.education-bg-overlay {
+  background-color: rgba(256, 256, 256, 0.9);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
