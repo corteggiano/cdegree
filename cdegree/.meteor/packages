@@ -22,9 +22,9 @@ insecure                # Allow all DB writes from clients (for prototyping)
 twbs:bootstrap
 stylus
 fortawesome:fontawesome
-iron:router
 natestrauser:animate-css
 service-configuration
 babel-runtime
 accounts-password
 session
+iron:router
