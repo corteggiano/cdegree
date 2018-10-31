@@ -1,5 +1,15 @@
 <template name="diagram">
-    {{#each courses}}
-        {{>node}}
-    {{/each }}
+    <div class="visualization-key">
+        <b>Key</b>
+        <div class="square square-complete"></div>
+        Complete
+        <div class="square square-incomplete"></div>
+        Incomplete
+    </div>
+
+    <div class="graph">
+        {{#each courses}} {{>node}} {{/each }}
+    </div>
+
+
 </template>
