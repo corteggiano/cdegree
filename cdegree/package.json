@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
-    "gojs":"^1.8.32",
+    "gojs": "^1.8.32",
     "meteor-node-stubs": "^0.4.1"
   }
 }
