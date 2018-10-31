@@ -6,5 +6,9 @@ Template.diagram.helpers({
         let requirements = degree.majorRequirements;
         return Course.find({requirements});
     },
-    
+
+    diagramToPoints:function() {
+
+    }
+
 });
