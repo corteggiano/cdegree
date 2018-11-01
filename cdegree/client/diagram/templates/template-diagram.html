@@ -6,15 +6,15 @@
         <div class="square square-incomplete"></div>
         Incomplete
     </div>
-
+<div class="tree">
+<ul>
         {{#each parents}}
-        <div class="tree">
-        <ul>
+
             <li>
             {{>node}}
             </li>
-        </ul>
-        </div>
-        {{/each }}
 
+        {{/each }}
+</ul>
+</div>
 </template>
