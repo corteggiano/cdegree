@@ -7,8 +7,12 @@
         Incomplete
     </div>
 
-    <div class="graph">
-        {{#each courses}} {{>node}} {{/each }}
+    <div class="tree">
+        {{#each parents}}
+            <ul>
+            {{>node}}
+            </ul>
+        {{/each }}
     </div>
 
 </template>

@@ -31,7 +31,7 @@ Meteor.startup(() => {
     // should make that a dict of ele
     Accounts.createUser({
         username: 'ursula',
-        email: 'usursula@ursula.com',
+        email: 'ursula@ursula.com',
         password: 'ursula',
         profile: {
             completedReqCourses: ["CS 1200", "CS 1210", "CS 1800", "CS 1802",
@@ -81,31 +81,31 @@ Meteor.startup(() => {
     Elective.insert({
         id: 1,
         name: "Upper Division CS Elective",
-        courses: ["IS 4300", "CS 3200", "CS 4120"]
+        parents: ["IS 4300", "CS 3200", "CS 4120"]
     });
 
     Elective.insert({
         id: 2,
         name: "Science Requirement",
-        courses: ["BIOL 1111","BIOL 1112","BIOL 1113","BIOL 1114", "PHYS 1161","PHYS 1162","PHYS 1163","PHYS 1165","PHYS 1166","PHYS 1167"]
+        parents: ["BIOL 1111","BIOL 1112","BIOL 1113","BIOL 1114", "PHYS 1161","PHYS 1162","PHYS 1163","PHYS 1165","PHYS 1166","PHYS 1167"]
     });
 
     Elective.insert({
         id: 3,
         name: "Computing and Social Issues",
-        courses: ["PHIL 1145", "SOCL 1280"]
+        parents: ["PHIL 1145", "SOCL 1280"]
     });
 
     Elective.insert({
         id: 4,
         name: "Advanced Writing in the Disciplines",
-        courses: ["ENGW 3302", "ENGW 3315"]
+        parents: ["ENGW 3302", "ENGW 3315"]
     });
 
     Elective.insert({
         id: 5,
         name: "Research and Data Analysis",
-        courses: ["PSYC 2320", "ECON 2350"]
+        parents: ["PSYC 2320", "ECON 2350"]
     });
 
     //ADD all courses
