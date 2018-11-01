@@ -4,14 +4,9 @@
 
     <hr/>
 
-    <div class="degree">Bachelor of Science in Computer Science</div>
+    <div class="degree">{{degree.name}}</div>
 
-    <div class="degree-description">The Bachelor of Science in Computer Science focuses on the
-      fundamentals of program design, software development, computer organization, systems and
-      networks, theories of computation, principles of languages, and advanced algorithms and data.
-      The bachelor's degree in computer science is also offered with a concentration in cyber
-      operations.
-    </div>
+    <div class="degree-description">{{degree.description}}</div>
 
     <hr/>
 
@@ -29,17 +24,14 @@
 
     <div class="classes-title">Remaining Classes (10)</div>
     <div class="classes-remaining">
-      <!-- TODO make not hard-coded -->
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS3000 - Algorithms and Data</div>
-      <div class="classes">CS Elective</div>
-      <div class="classes">CS Elective</div>
-      <div class="classes">CS Elective</div>
+
+      {{#each remaining}}
+
+      <div class="classes">
+        {{this.id}} - {{this.name}}
+      </div>
+
+      {{/each }}
 
     </div>
   </div>
