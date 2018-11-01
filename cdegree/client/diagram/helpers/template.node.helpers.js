@@ -14,7 +14,27 @@ Template.node.helpers({
     
     childs:function(){
 
-        return Course.find({"prereqs" : this.id});
+
+        let degreeName = Meteor.user().profile.degree;
+        let degree = Degree.findOne({name: degreeName});
+        let requirements = degree.sections.majorRequirements;
+        let prereqs = Course.find({"prereqs" : this.id});
+
+        let childs = [];
+
+        requirements.forEach(function(element) {
+            let course = Course.findOne({id: element});
+
+            prereqs.forEach(function(element) {
+                if(course.id === element.id) {
+                    childs.push(course);
+                }
+            });
+
+        });
+
+
+        return childs;
 
     },
 
