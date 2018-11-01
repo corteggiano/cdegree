@@ -27,12 +27,19 @@
 
       {{#each remaining}}
 
-      <div class="classes">
+      <div class="classes" data-id="{{id}}">
         {{this.id}} - {{this.name}}
       </div>
 
       {{/each }}
 
+      {{#each electives}}
+
+      <div class="classes" data-id="{{id}}">
+        {{this}}
+      </div>
+
+      {{/each }}
     </div>
   </div>
 </template>
