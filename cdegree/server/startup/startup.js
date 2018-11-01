@@ -411,7 +411,7 @@ Meteor.startup(() => {
             "id": "EECE 2160",
             "name": "Embedded Design: Enabling Robotics",
             "credits": 4,
-            "prereqs": [],
+            "prereqs": ["CS 3500"],
             "coreqs": [],
             "description": "Offers an integrated lecture/lab course that covers the basics of the Unix operating system, high-level programming concepts, introductory digital design, wireless networking, and Simulink design. Offers students a hands-on experience developing a remote-controlled robotic arm using an embedded systems platform.",
         },

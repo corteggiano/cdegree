@@ -18,7 +18,9 @@ Template.diagram.helpers({
         requirements.forEach(function(element) {
             let course = Course.findOne({id: element});
 
-            if(course.prereqs.length === 0) {
+            var lastChar = element[element.length -1];
+
+            if(course.prereqs.length === 0 && lastChar !== "1" && lastChar !== "2") {
                 parents.push(course);
             }
         });

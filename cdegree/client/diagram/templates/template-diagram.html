@@ -7,12 +7,14 @@
         Incomplete
     </div>
 
-    <div class="tree">
         {{#each parents}}
-            <ul>
+        <div class="tree">
+        <ul>
+            <li>
             {{>node}}
-            </ul>
+            </li>
+        </ul>
+        </div>
         {{/each }}
-    </div>
 
 </template>
