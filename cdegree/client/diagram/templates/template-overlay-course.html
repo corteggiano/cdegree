@@ -1,16 +1,10 @@
 <template name="overlayCourse">
     <div class="col-xs-12 overlay-section">
-        <div class="course-name">CS3000 - Algorithms and Data</div>
+        <div class="course-name">{{course.name}}</div>
         <div class="overlay-close">X</div>
 
-        <div class="course-description">Class description goes here it’s very long Class description goes here it’s very long Class description goes here
-            it’s very long Class description goes here it’s very long Class description goes here it’s very long Class description
-            goes here it’s very long Class description goes here it’s very long.Class description goes here it’s very long
-            Class description goes here it’s very long Class description goes here it’s very long Class description goes
-            here it’s very long Class description goes here it’s very long Class description goes here it’s very long Class
-            description goes here it’s very long.Class description goes here it’s very long Class description goes here it’s
-            very long Class description goes here it’s very long Class description goes here it’s very long Class description
-            goes here it’s very long Class description goes here it’s very long Class description goes here it’s very long.
+        <div class="course-description">
+            {{course.description}}
         </div>
         <div class="course-requisites">Credits: 4</div>
         <div class="course-requisites">Corequisites: CS3001 </div>
