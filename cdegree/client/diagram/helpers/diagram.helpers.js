@@ -18,9 +18,7 @@ Template.diagram.helpers({
         requirements.forEach(function(element) {
             let course = Course.findOne({id: element});
 
-            var lastChar = element[element.length -1];
-
-            if(course.prereqs.length === 0 && lastChar !== "1" && lastChar !== "2") {
+            if(course.prereqs.length === 0 && course.credits > 2) {
                 parents.push(course);
             }
         });
@@ -28,5 +26,10 @@ Template.diagram.helpers({
         return parents;
 
     },
+
+    degree:function () {
+        let degreeName = Meteor.user().profile.degree;
+        return Degree.findOne({name: degreeName});
+    }
     
 });

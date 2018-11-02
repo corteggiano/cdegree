@@ -1,17 +1,15 @@
 <template name="node">
 
             {{#if isCompleted}}
-                <button class="btn btn-secondary course-node completed-node">{{name}}</button>
+                <button data-id="{{id}}" class="btn btn-secondary course-node completed-node">{{name}}</button>
             {{else if isInProgress}}
-                <span class="ip-marker">IP</span>
-                <button class="btn btn-secondary course-node in-progress-node">{{name}}</button>
+                <button data-id="{{id}}" class="btn btn-secondary course-node in-progress-node">[IP] {{name}}</button>
             {{else}}
-                <button class="btn btn-primary course-node">{{name}}</button>
+                <button data-id="{{id}}" class="btn btn-primary course-node">{{name}}</button>
             {{/if}}
 
 
-{{#if hasChilds}}
-
+    {{#if hasChilds}}
            <ul>
                 {{#each childs}}
                 <li>
@@ -19,6 +17,6 @@
                 </li>
                 {{/each}}
            </ul>
-{{/if}}
+    {{/if}}
 
 </template>
