@@ -1,40 +1,59 @@
-Template.diagramSidebar.helpers({
+function getDegree() {
+  let user = Meteor.user().profile;
+  return Degree.findOne({name: user.degree});
+}
 
+function getCompletedCourseIds() {
+  return Meteor.user().profile.completedReqCourses;
+}
+
+function getNumCompletedCredits() {
+  let userCompletedCourses = getCompletedCourseIds();
+  let acc = 0;
+  userCompletedCourses.forEach(course => {
+    acc += Course.findOne({id:course}).credits;
+  });
+  return acc;
+}
+
+function getRemainingElectiveIds() {
+  let user = Meteor.user().profile;
+  let electives = Degree.findOne({name: user.degree}).sections.electives.slice();
+  let userCompletedElectives = user.completedElectives.slice().map(
+      el => el[0]);
+
+  userCompletedElectives.forEach(el => {
+    // guard against student completing more electives than required
+    let idx = electives.indexOf(el);
+
+    if (electives.length > 0 && idx > -1) {
+      electives.splice(idx, 1); // remove completed elective
+    }
+  });
+
+  return electives;
+}
+
+
+Template.diagramSidebar.helpers({
 // returns whether the current course has been completed or not
   degree: function () {
-    let user = Meteor.user().profile.degree;
-    return Degree.findOne({name: user});
+    return getDegree();
   },
 
   completedCredits: function () {
-    let userCompletedCourses = Meteor.user().profile.completedReqCourses;
-    let acc = 0;
-    userCompletedCourses.forEach(course => {
-      acc += Course.findOne({id:course}).credits;
-    });
-    return acc;
+    return getNumCompletedCredits();
   },
 
   remainingCredits: function () {
-    let user = Meteor.user().profile.degree;
-    let degree = Degree.findOne({name: user});
-
-    let userCompletedCourses = Meteor.user().profile.completedReqCourses;
-    let acc = 0;
-    userCompletedCourses.forEach(course => {
-      acc += Course.findOne({id:course}).credits;
-    });
-
-    return degree.semesterHoursRequired - acc;
+    let degree = getDegree();
+    return degree.semesterHoursRequired - getNumCompletedCredits() - getRemainingElectiveIds.length;
   },
 
   // returns incomplete courses
   remaining: function () {
-    let user = Meteor.user().profile;
-    let degree = Degree.findOne({name: user.degree});
-
-    let degreeReqs = degree.sections.majorRequirements.slice();
-    let userCompletedClasses = user.completedReqCourses;
+    let degreeReqs = getDegree().sections.majorRequirements.slice();
+    let userCompletedClasses = getCompletedCourseIds();
 
     let remaining = [];
 
@@ -50,25 +69,8 @@ Template.diagramSidebar.helpers({
 
   // returns incomplete, unspecified electives
   electives: function () {
-    let user = Meteor.user().profile;
-    let degree = Degree.findOne({name: user.degree});
-
-    let electives = degree.sections.electives.slice();
-    let userCompletedElectives = user.completedElectives.slice().map(
-        el => el[0]);
-
-    userCompletedElectives.forEach(el => {
-      // guard against student completing more electives than required
-      let idx = electives.indexOf(el);
-
-      if (electives.length > 0 && idx > -1) {
-        electives.splice(idx, 1); // remove completed elective
-      }
-    });
-
+    let electives = getRemainingElectiveIds();
     let descriptions = [];
-    // get the description for each elective
-
     electives.forEach(el => {
       let description = Elective.findOne({id: el}).name;
       descriptions.push(description);
