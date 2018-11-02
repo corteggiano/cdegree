@@ -12,7 +12,6 @@ Template.overlayCourse.events({
         profile['selectedElectives'] = newElectives;
         Meteor.users.update({_id:Meteor.user()._id}, {$set: {profile: profile}});
         $('#overlay').fadeOut();
-        //alert("Hello! We are still working on this :-)");
     }
 
 });
