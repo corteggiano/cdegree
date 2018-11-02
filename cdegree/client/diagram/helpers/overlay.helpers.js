@@ -26,7 +26,6 @@ Template.overlayCourse.helpers({
 
         electives.push(elective);
 
-
         elective.parents.forEach(function(element) {
 
             let course = Course.findOne({id: element});
