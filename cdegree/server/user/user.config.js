@@ -7,6 +7,7 @@ Accounts.onCreateUser(function(options, user) {
                 "ENGW 1111", "MATH 1341"],
             inProgressCourses: ["CS 2800", "MATH 1342", "CS 3800", "CS 3650"],
             completedElectives: [[3, "SOCL 1280"]],
+            selectedElectives: [[1, "IS 4300"]],
             degree: "Bachelor of Science in Computer Science",
             capstone: null,
             fulfilledNUPath: false
@@ -18,6 +19,7 @@ Accounts.onCreateUser(function(options, user) {
             completedReqCourses: [],
                 inProgressCourses: ["CS 1200", "CS 1800", "CS 2500", "CS 2501", "ENGW 1111"],
                 completedElectives: [],
+                selectedElectives: [[2, "BIOL 1111"]],
                 degree: "Bachelor of Science in Computer Science",
                 capstone: null,
                 fulfilledNUPath: false
