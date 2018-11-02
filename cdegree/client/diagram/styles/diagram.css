@@ -11,12 +11,10 @@ black: #040f16 */
 }
 
 #content {
-  height: 100%;
   padding: 0;
 }
 
 #content .container-fluid {
-  height: 100%;
   padding: 0;
 }
 
