@@ -1,36 +1,32 @@
 <template name="overlayCourse">
     <div class="col-xs-12 overlay-section">
-    {{#if isElective}}
-        <h4 class="card-title">Elective: Upper Division CS</h4>
+        <div class="overlay-close">X</div>
+        {{#if isElective}}
+        <h4 class="card-title">{{name}}</h4>
         <p>Choose a class to fulfill this elective requirement from the options below:</p>
 
-        <div class="accordion" id="electives-accordion">
+        <div  id="electives-accordion">
+
+        {{#each electives}}
             <div class="card">
-                <div class="card-header overlay-card-header" id="headingOne">
+                <div class="card-header overlay-card-header" id="heading{{_id}}">
                     <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            IS 4300: Human Computer Interaction
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{_id}}" aria-expanded="false" aria-controls="{{_id}}">
+                            {{name}}
                         </button>
                     </h5>
                 </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#electives-accordion">
+                <div id="{{_id}}" class="collapse" aria-labelledby="heading{{_id}}" data-parent="#electives-accordion">
                     <div class="card-body overlay-card-body">
-                        <button class="btn choose-elective login-btn">Choose</button>
+                        <button class="btn choose-elective login-btn select-elective" data-id="{{id}}">Choose</button>
                         <h6>Description:</h6>
                         <p>
-                            Studies the principles of human-computer interaction and the practice of user interface design. Discusses the major human
-                            information processing subsystems (perception, memory, attention, and problem solving), and how
-                            the properties of these systems influence the design of interactive systems. Reviews guidelines
-                            and specification languages for designing user interfaces, with an emphasis on tool kits of standard
-                            graphical user interface (GUI) objects. Introduces usability metrics and evaluation methods.
-                            Additional topics may include World Wide Web design principles and tools; wireless/mobile device
-                            interfaces; computer-supported cooperative work; information visualization; and virtual reality.
-                            Course work includes designing user interfaces, creating working prototypes using a GUI tool
-                            kit, and evaluating existing interfaces using the methods studied.
+                            {{description}}
                         </p>
                         <p>
-                            <b>Credits:</b> 4
+                            <b>Credits:</b> {{credits}}
+
                             <br>
                             <b>Prerequisites:</b> CS 3500: Object Oriented Design
                             <br>
@@ -39,72 +35,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-header overlay-card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                aria-controls="collapseTwo">
-                            CS 3200: Database Design
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#electives-accordion">
-                    <div class="card-body overlay-card-body">
-                        <button class="btn choose-elective login-btn">Choose</button>
-                        <h6>Description:</h6>
-                        <p>
-                            Studies the design of a database for use in a relational database management system. The entity-relationship model and normalization
-                            are used in problems. Relational algebra and then the SQL (structured query language) are presented.
-                            Advanced topics include triggers, stored procedures, indexing, elementary query optimization,
-                            and fundamentals of concurrency and recovery. Students implement a database schema and short
-                            application programs on one or more commercial relational database management systems.
-                        </p>
-                        <p>
-                            <b>Credits:</b> 4
-                            <br>
-                            <b>Prerequisites:</b> CS 2500: Fundamentals of Computer Science 1
-                            <br>
-                            <b>Corequisites:</b> None
-                            <br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header overlay-card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
-                                aria-controls="collapseThree">
-                            CS 3800: Theory of Computation
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#electives-accordion">
-                    <div class="card-body overlay-card-body">
-                        <button class="btn choose-elective login-btn">Choose</button>
-                        <h6>Description:</h6>
-                        <p>
-                            Introduces the theory behind computers and computing aimed at answering the question, “What are the capabilities and limitations
-                            of computers?” Covers automata theory, computability, and complexity. The automata theory portion
-                            includes finite automata, regular expressions, nondeterminism, nonregular languages, context-free
-                            languages, pushdown automata, and noncontext-free languages. The computability portion includes
-                            Turing machines, the Church-Turing thesis, decidable languages, and the Halting theorem. The
-                            complexity portion includes big-O and small-o notation, the classes P and NP, the P vs. NP question,
-                            and NP-completeness.
-                        </p>
-                        <p>
-                            <b>Prerequisites:</b> CS 2510: Fundamentals of Computer Science 2
-                            <br>
-                            <b>Corequisites:</b> None</p>
-                    </div>
-                </div>
-            </div>
+        {{/each}}
         </div>
     {{else}}
         <div class="course-name">{{course.name}}</div>
-        <div class="overlay-close">X</div>
 
         <div class="course-description">
             {{course.description}}
