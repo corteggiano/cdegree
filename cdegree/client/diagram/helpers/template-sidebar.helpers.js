@@ -56,6 +56,8 @@ Template.diagramSidebar.helpers({
     let electives = degree.sections.electives.slice();
     let userCompletedElectives = user.completedElectives.slice().map(
         el => el[0]);
+    let userSelectedElectives = user.selectedElectives.slice().map(
+        el => el[0]);
 
     userCompletedElectives.forEach(el => {
       // guard against student completing more electives than required
@@ -65,6 +67,14 @@ Template.diagramSidebar.helpers({
         electives.splice(idx, 1); // remove completed elective
       }
     });
+
+    userSelectedElectives.forEach(el => {
+        let idx = electives.indexOf(el);
+
+        if (electives.length > 0 && idx > -1) {
+            electives.splice(idx, 1);
+        }
+    })
 
     let descriptions = [];
     // get the description for each elective
