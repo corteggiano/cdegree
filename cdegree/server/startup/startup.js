@@ -63,7 +63,7 @@ Meteor.startup(() => {
     Elective.insert({
         id: 1,
         name: "Upper Division CS Elective",
-        parents: ["IS 4300", "CS 3200", "CS 4120"]
+        parents: ["IS 4300", "CS 3200", "CS 4120", "CS 4550"]
     });
 
     Elective.insert({
