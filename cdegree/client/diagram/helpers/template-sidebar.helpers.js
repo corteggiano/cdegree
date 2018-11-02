@@ -83,7 +83,7 @@ Template.diagramSidebar.helpers({
     let electives = getRemainingElectiveIds();
     let descriptions = [];
     electives.forEach(el => {
-      let description = Elective.findOne({id: el}).name;
+      let description = Elective.findOne({id: el});
       descriptions.push(description);
     });
 
