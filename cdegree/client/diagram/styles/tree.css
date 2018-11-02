@@ -10,8 +10,8 @@ body {
 
 .tree {
   transform-origin: 50%;
-  overflow: scroll;
-  height: 100%;
+  overflow: auto;
+  height: calc(100% - 55px); /* subtract height of diagram key */
 }
 
 .tree ul {
@@ -120,6 +120,10 @@ body {
 }
 
 .ip-marker {
-  font-size: smaller;
-  color: #448bb2;
+  display: block;
+  width: fit-content;
+  margin-bottom: -6px;
+  margin-top: -6px;
+  margin-left: -13px;
+  border-radius: 4px 0 .25em 0;
 }
