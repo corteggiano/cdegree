@@ -13,6 +13,16 @@
   width: 100%;
 }
 
-.dropdown {
+.dropdown{
   text-align: right;
+}
+.dropdown-menu {
+  width: 100%;
+  padding: 15px;
+}
+.dropdown-menu li {
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #e6e6e6;
+  padding-bottom: 5px;
+  font-size: 14px;
 }
