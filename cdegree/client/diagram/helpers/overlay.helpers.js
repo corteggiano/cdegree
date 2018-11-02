@@ -18,13 +18,18 @@ Template.overlayCourse.helpers({
     },
 
     // returns whether the current course has been completed or not
+    current:function(){
+
+        return Elective.findOne({id: parseInt(Session.get('selectedCourse'))});
+
+    },
+
+    // returns whether the current course has been completed or not
     electives:function(){
 
         let electives = [];
 
         let elective = Elective.findOne({id: parseInt(Session.get('selectedCourse'))});
-
-        electives.push(elective);
 
         elective.parents.forEach(function(element) {
 

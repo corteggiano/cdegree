@@ -2,7 +2,7 @@
     <div class="col-xs-12 overlay-section">
         <div class="overlay-close">X</div>
         {{#if isElective}}
-        <h4 class="card-title">{{name}}</h4>
+        <h4 class="card-title">{{current.name}}</h4>
         <p>Choose a class to fulfill this elective requirement from the options below:</p>
 
         <div  id="electives-accordion">
@@ -36,6 +36,7 @@
                 </div>
             </div>
         {{/each}}
+
         </div>
     {{else}}
         <div class="course-name">{{course.name}}</div>
