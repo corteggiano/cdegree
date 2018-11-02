@@ -5,8 +5,14 @@ Template.overlayCourse.events({
     },
 
     'click .select-elective': function(event) {
-        //Meteor.user().profile.selectedElectives.push([Session.get("selectedCurse"), event.currentTarget.dataset.id]);
-        alert("Hello! We are still working on this :-)");
+        let electiveType = parseInt(Session.get("selectedCourse"));
+        let profile = Meteor.user().profile;
+        let newElectives = profile.selectedElectives.slice()
+        newElectives.push([electiveType, event.currentTarget.dataset.id]);
+        profile['selectedElectives'] = newElectives;
+        Meteor.users.update({_id:Meteor.user()._id}, {$set: {profile: profile}});
+        $('#overlay').fadeOut();
+        //alert("Hello! We are still working on this :-)");
     }
 
 });
