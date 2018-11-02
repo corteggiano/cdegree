@@ -28,5 +28,10 @@ Template.diagram.helpers({
         return parents;
 
     },
+
+    degree:function () {
+        let degreeName = Meteor.user().profile.degree;
+        return Degree.findOne({name: degreeName});
+    }
     
 });
