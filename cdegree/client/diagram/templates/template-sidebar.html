@@ -11,18 +11,18 @@
     <hr/>
 
     <div class="credit">Total Credits Needed:
-      <b>128</b>
+      <b>{{degree.semesterHoursRequired}}</b>
     </div>
     <div class="credit">Credits Completed:
-      <b>102</b>
+      <b>{{completedCredits}}</b>
     </div>
     <div class="credit">Remaining Credits:
-      <b>26</b>
+      <b>{{remainingCredits}}</b>
     </div>
 
     <hr/>
 
-    <div class="classes-title">Remaining Classes (10)</div>
+    <div class="classes-title">Remaining Classes</div>
     <div class="classes-remaining">
 
       {{#each remaining}}

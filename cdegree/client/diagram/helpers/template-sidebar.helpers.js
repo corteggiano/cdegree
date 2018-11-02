@@ -6,6 +6,28 @@ Template.diagramSidebar.helpers({
     return Degree.findOne({name: user});
   },
 
+  completedCredits: function () {
+    let userCompletedCourses = Meteor.user().profile.completedReqCourses;
+    let acc = 0;
+    userCompletedCourses.forEach(course => {
+      acc += Course.findOne({id:course}).credits;
+    });
+    return acc;
+  },
+
+  remainingCredits: function () {
+    let user = Meteor.user().profile.degree;
+    let degree = Degree.findOne({name: user});
+
+    let userCompletedCourses = Meteor.user().profile.completedReqCourses;
+    let acc = 0;
+    userCompletedCourses.forEach(course => {
+      acc += Course.findOne({id:course}).credits;
+    });
+
+    return degree.semesterHoursRequired - acc;
+  },
+
   // returns incomplete courses
   remaining: function () {
     let user = Meteor.user().profile;
@@ -20,14 +42,13 @@ Template.diagramSidebar.helpers({
       if (!userCompletedClasses.includes(req)) {
         let course = Course.findOne({id: req});
         remaining.push(course);
-        console.log(course);
       }
     });
 
     return remaining;
   },
 
-  // returns incomplete electives
+  // returns incomplete, unspecified electives
   electives: function () {
     let user = Meteor.user().profile;
     let degree = Degree.findOne({name: user.degree});
@@ -55,4 +76,6 @@ Template.diagramSidebar.helpers({
 
     return descriptions;
   },
+
+  // TODO handle electives that have been specified but not completed
 });
