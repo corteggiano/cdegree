@@ -77,5 +77,14 @@ Template.diagramSidebar.helpers({
     return descriptions;
   },
 
+  selected:function() {
+      let selectedElectiveIds = Meteor.user().profile.selectedElectives;
+      let electiveClasses = [];
+      selectedElectiveIds.forEach(elective => {
+         electiveClasses.push(Course.findOne({id:elective[1]}))
+      });
+      return electiveClasses;
+  }
+
   // TODO handle electives that have been specified but not completed
 });
