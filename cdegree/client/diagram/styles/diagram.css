@@ -138,6 +138,11 @@ a.back-button:hover {
   );
 }
 
+.square-prereq {
+  background-color: white;
+  border: 2px solid red;
+}
+
 .graph {
   height: 50%;
 }
