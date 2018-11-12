@@ -11,12 +11,11 @@
             <i class="fa fa-search" aria-hidden="true"></i>
             <div id="degree-dropdown" class="dropdown-menu">
                 <ul class="list-unstyled">
-                    <li>
-                        <a class="dropdown-item" href="/diagram">Computer Science BS</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="/diagram">Computer Science and Information Science Combined BS</a>
-                    </li>
+                    {{#each degrees}}
+                        <li>
+                            <a class="dropdown-item" href="/diagram/{{_id}}">{{name}}</a>
+                        </li>
+                    {{/each}}
                 </ul>
             </div>
         </div>

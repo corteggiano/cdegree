@@ -1,5 +1,5 @@
 if(!Meteor.user()) {
-    Router.go("/");
+   // Router.go("/");
 }
 
 Template.diagram.helpers({
@@ -7,8 +7,7 @@ Template.diagram.helpers({
     //Returns all the courses for now TODO hook to user data
     parents:function(){
 
-        let degreeName = Meteor.user().profile.degree;
-        let degree = Degree.findOne({name: degreeName});
+        let degree = Degree.findOne({_id: Router.current().params._id});
         let requirements = degree.sections.majorRequirements;
 
         let parents = [];
@@ -23,11 +22,6 @@ Template.diagram.helpers({
 
         return parents;
 
-    },
-
-    degree:function () {
-        let degreeName = Meteor.user().profile.degree;
-        return Degree.findOne({name: degreeName});
     }
     
 });

@@ -5,6 +5,7 @@ Meteor.startup(() => {
     //Clear DB
     Meteor.users.remove({});
     Course.remove({});
+    Degree.remove({});
     Elective.remove({});
 
     //Add all Users
