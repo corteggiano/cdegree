@@ -13,6 +13,12 @@ Template.overlayCourse.helpers({
         || Session.get('selectedCourse') === "4";
   },
 
+  isSelectedElective:function(){
+         let courseId = Session.get('selectedCourse');
+         let selectedElectiveIds = Meteor.user().profile.selectedElectives.map(el => el[1]);
+         return selectedElectiveIds.includes(courseId);
+  },
+
   // returns whether the current course has been completed or not
   current: function () {
     return Elective.findOne({id: parseInt(Session.get('selectedCourse'))});
@@ -26,7 +32,9 @@ Template.overlayCourse.helpers({
         {id: parseInt(Session.get('selectedCourse'))});
     elective.parents.forEach(function (element) {
       let course = Course.findOne({id: element});
-      electives.push(course);
+      if (course.credits > 2) {
+        electives.push(course);
+      }
     });
 
     return electives;
@@ -47,7 +55,9 @@ Template.overlayCourse.helpers({
     // major requirements
     let degree = Degree.findOne({_id: Router.current().params._id});
     let requirements = degree.sections.majorRequirements;
-    console.log("reqs", requirements);
+    let selectedElectives = Meteor.user().profile.selectedElectives;
+    let selectedElectiveIds = selectedElectives.map(el => el[1]);
+    requirements = requirements.concat(selectedElectiveIds);
 
     // prerequisites for this class
     let prereqs = Course.findOne({id: this.id}).prereqs;
