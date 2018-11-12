@@ -1,6 +1,7 @@
 <template name="diagramSidebar">
   <div class="left-menu">
-    <a href="/choose" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
+    <a href="/choose" class="back-button">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
 
     <hr/>
 
@@ -23,7 +24,8 @@
     <hr/>
 
     <div class="classes-title">Remaining Classes</div>
-    <div class="classes-remaining">
+    <input type="text" placeholder="Search..." class="form-control dropdown-toggle" id="search-class">
+    <div class="classes-remaining" id="classes-remaining">
 
       {{#each remaining}}
 
@@ -31,17 +33,13 @@
         {{this.id}} - {{this.name}}
       </div>
 
-      {{/each }}
-
-      {{#each selected}}
+      {{/each }} {{#each selected}}
 
       <div class="classes" data-id="{{id}}">
         Elective: {{this.id}} - {{this.name}}
       </div>
 
-      {{/each }}
-
-      {{#each electives}}
+      {{/each }} {{#each electives}}
 
       <div class="classes" data-id="{{id}}">
         {{name}}
