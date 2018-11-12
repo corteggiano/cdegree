@@ -25,17 +25,16 @@ black: #040f16 */
   height: 100%;
 }
 
-a.back-button{
+a.back-button {
   color: #000;
   font-weight: 700;
 }
 
-a.back-button:hover  {
+a.back-button:hover {
   text-underline: none;
 }
 
 .back-button {
-
 }
 
 .degree {
@@ -82,6 +81,7 @@ a.back-button:hover  {
   padding: 15px;
   display: inline-flex;
   width: 100%;
+  background-color: #00000030;
 }
 
 .square {
@@ -100,6 +100,16 @@ a.back-button:hover  {
 
 .square-incomplete {
   background-color: #448bb2;
+}
+
+.square-in-progress {
+  background: repeating-linear-gradient(
+    45deg,
+    #e2eef5,
+    #e2eef5 5px,
+    white 5px,
+    white 10px
+  );
 }
 
 .graph {
