@@ -40,8 +40,9 @@ Template.overlayCourse.helpers({
         elective.parents.forEach(function(element) {
 
             let course = Course.findOne({id: element});
-
-            electives.push(course);
+            if (course.credits > 2) {
+                electives.push(course);
+            }
 
         });
 

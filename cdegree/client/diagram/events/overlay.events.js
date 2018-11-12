@@ -18,5 +18,28 @@ Template.overlayCourse.events({
       .fadeIn(100)
       .delay(1200)
       .fadeOut(400);
+  },
+
+  'click .replace-elective': function(event) {
+      let electiveId = Session.get("selectedCourse");
+      let selectedElectives = Meteor.user().profile.selectedElectives;
+      let electiveType = -1;
+      selectedElectives.forEach(elective => {
+          if (elective[1] === electiveId) {
+              electiveType = elective[0]
+          }
+      });
+      if (electiveType !== -1) {
+          Session.set("selectedCourse", electiveType.toString());
+          let foundIndex = selectedElectives.findIndex(elective => {
+              return elective[1] === electiveId;
+          });
+          selectedElectives.splice(foundIndex,1);
+          let profile = Meteor.user().profile;
+          profile['selectedElectives'] = selectedElectives;
+          Meteor.users.update({_id:Meteor.user()._id}, {$set: {profile: profile}});
+      } else {
+          console.log("Error, elective type not found for selected elective.");
+      }
   }
 });
