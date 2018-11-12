@@ -39,11 +39,12 @@
 
 .overlay-card-header {
   padding: 0;
+  border-top: 2px solid #efefef;
 }
 
-.choose-elective {
-  float: right;
-  margin-top: -10px;
-  margin-right: -10px;
-  padding: 2px 10px;
+.select-elective {
+    float: right;
+    margin-top: -10px;
+    margin-right: -10px;
+    padding: 2px 10px;
 }

@@ -1,53 +1,68 @@
 <template name="overlayCourse">
-    <div class="col-xs-12 overlay-section">
-        <div class="overlay-close">X</div>
-        {{#if isElective}}
-        <h4 class="card-title">{{current.name}}</h4>
-        <p>Choose a class to fulfill this elective requirement from the options below:</p>
+  <div class="col-xs-12 overlay-section">
+    <div class="overlay-close">X</div>
+    {{#if isElective}}
+    <h4 class="card-title">{{current.name}}</h4>
+    <p>Choose a class to fulfill this elective requirement from the options below:</p>
 
-        <div  id="electives-accordion">
+    <div id="electives-accordion">
+      {{#each electives}}
+      <div class="card">
+        <div class="card-header overlay-card-header" id="heading{{_id}}">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{_id}}"
+                  aria-expanded="false" aria-controls="{{_id}}">
+            {{id}} - {{name}}
+          </button>
+        </div>
 
-        {{#each electives}}
-            <div class="card">
-                <div class="card-header overlay-card-header" id="heading{{_id}}">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{_id}}" aria-expanded="false" aria-controls="{{_id}}">
-                            {{name}}
-                        </button>
-                    </h5>
-                </div>
+        <div id="{{_id}}" class="collapse" aria-labelledby="heading{{_id}}"
+             data-parent="#electives-accordion">
+          <div class="card-body overlay-card-body">
 
-                <div id="{{_id}}" class="collapse" aria-labelledby="heading{{_id}}" data-parent="#electives-accordion">
-                    <div class="card-body overlay-card-body">
-                        <button class="btn choose-elective login-btn select-elective" data-id="{{id}}">Choose</button>
-                        <h6>Description:</h6>
-                        <p>
-                            {{description}}
-                        </p>
-                        <p>
-                            <b>Credits:</b> {{credits}}
+            {{#if isAlreadyChosen}}
+            <button class="btn choose-elective login-btn select-elective already-chosen disabled"
+                    title="This class was already chosen for another elective or is part of your other degree requirements" data-id="{{id}}">
+              Already Chosen
+            </button>
+            {{else if isMissingPrereq}}
+            <button class="btn choose-elective login-btn select-elective missing-prereqs disabled"
+                    title="This course has prerequisites not fulfilled by your degree"
+                    data-id="{{id}}">
+              Missing Prerequisites
+            </button>
+            {{else}}
+            <button class="btn choose-elective login-btn select-elective"
+                    title="Choose this class to fulfil this elective" data-id="{{id}}">
+              Choose
+            </button>
+            {{/if}}
 
-                            <br>
-                            <b>Prerequisites:</b> CS 3500: Object Oriented Design
-                            <br>
-                            <b>Corequisites:</b> None
-                        </p>
-                    </div>
-                </div>
+            <div class="course-description">
+              {{description}}
             </div>
-        {{/each}}
-
+            <div class="course-requisites">Credits: {{credits}}</div>
+            <div class="course-requisites">
+              Prerequisites: {{#each prereqs}} {{this}} {{/each}}
+            </div>
+            <div class="course-requisites">
+              Corequisites: {{#each coreqs}} {{this}} {{/each}}
+            </div>
+          </div>
         </div>
+      </div>
+      {{/each}}
+    </div>
+
     {{else}}
-        <div class="course-name">{{course.name}}</div>
+    <div class="course-name">{{course.name}}</div>
 
-        <div class="course-description">
-            {{course.description}}
-        </div>
-        <div class="course-requisites">Credits: {{course.credits}}</div>
-        <div class="course-requisites">Corequisites: {{#each course.coreqs}} {{this}} {{/each }}</div>
-        <div class="course-requisites">Prerequisites: {{#each course.prereqs}} {{this}} {{/each }}</div>
+    <div class="course-description">
+      {{course.description}}
+    </div>
+    <div class="course-requisites">Credits: {{course.credits}}</div>
+    <div class="course-requisites">Corequisites: {{#each course.coreqs}} {{this}} {{/each }}</div>
+    <div class="course-requisites">Prerequisites: {{#each course.prereqs}} {{this}} {{/each }}</div>
 
     {{/if}}
-    </div>
+  </div>
 </template>
