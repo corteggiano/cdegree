@@ -1,6 +1,7 @@
 Template.overlayCourse.events({
   "click .overlay-close": function(event) {
     $("#overlay").fadeOut();
+      $('.prereq').removeClass("prereq");
   },
 
   "click .select-elective": function(event) {
