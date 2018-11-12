@@ -10,7 +10,9 @@ Template.diagram.helpers({
         let degreeName = Meteor.user().profile.degree;
         let degree = Degree.findOne({name: degreeName});
         let requirements = degree.sections.majorRequirements;
-
+        let selectedElectives = Meteor.user().profile.selectedElectives;
+        let selectedElectiveIds = selectedElectives.map(el => el[1]);
+        requirements = requirements.concat(selectedElectiveIds);
         let parents = [];
 
         requirements.forEach(function(element) {
@@ -29,5 +31,5 @@ Template.diagram.helpers({
         let degreeName = Meteor.user().profile.degree;
         return Degree.findOne({name: degreeName});
     }
-    
+
 });

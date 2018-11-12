@@ -17,6 +17,9 @@ Template.node.helpers({
         let degreeName = Meteor.user().profile.degree;
         let degree = Degree.findOne({name: degreeName});
         let requirements = degree.sections.majorRequirements;
+        let selectedElectives = Meteor.user().profile.selectedElectives;
+        let selectedElectiveIds = selectedElectives.map(el => el[1]);
+        requirements = requirements.concat(selectedElectiveIds);
         let prereqs = Course.find({"prereqs" : this.id});
 
         let childs = [];
@@ -41,6 +44,9 @@ Template.node.helpers({
         let degreeName = Meteor.user().profile.degree;
         let degree = Degree.findOne({name: degreeName});
         let requirements = degree.sections.majorRequirements;
+        let selectedElectives = Meteor.user().profile.selectedElectives;
+        let selectedElectiveIds = selectedElectives.map(el => el[1]);
+        requirements = requirements.concat(selectedElectiveIds);
         let prereqs = Course.find({"prereqs" : this.id});
 
         let childs = [];
