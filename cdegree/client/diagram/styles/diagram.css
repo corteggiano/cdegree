@@ -115,3 +115,25 @@ a.back-button:hover {
 .graph {
   height: 50%;
 }
+
+.course-added {
+  position: absolute;
+  bottom: 10%;
+  left: 20%;
+
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  width: 200px;
+  padding: 20px;
+
+  background-color: #01baef;
+
+  border: solid;
+  border-radius: 7px;
+  border-color: #01baef;
+
+  z-index: 100;
+
+  display: none;
+}
