@@ -17,6 +17,12 @@ Template.overlayCourse.helpers({
 
     },
 
+    isSelectedElective:function(){
+        let courseId = Session.get('selectedCourse');
+        let selectedElectiveIds = Meteor.user().profile.selectedElectives.map(el => el[1]);
+        return selectedElectiveIds.includes(courseId);
+    },
+
     // returns whether the current course has been completed or not
     current:function(){
 
