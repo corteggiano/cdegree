@@ -42,6 +42,10 @@ black: #040f16 */
   padding: 0;
 }
 
+.prereq {
+  border: 2px solid red !important;
+}
+
 .left-menu {
   padding-top: 20px;
   height: 100%;

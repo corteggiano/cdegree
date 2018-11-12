@@ -35,6 +35,8 @@ Template.diagramSidebar.events({
       $('#overlay').removeClass("col-md-offset-4");
       $('#overlay').removeClass("col-md-8");
 
+      $('.visualization-key').css("padding-left", "70px");
+
       $('.show-button').fadeIn();
   },
 
@@ -46,6 +48,8 @@ Template.diagramSidebar.events({
       $('#overlay').removeClass("col-sm-12");
       $('#overlay').addClass("col-md-offset-4");
       $('#overlay').addClass("col-md-8");
+
+      $('.visualization-key').css("padding-left", "15px");
 
       $('.show-button').hide();
   },
