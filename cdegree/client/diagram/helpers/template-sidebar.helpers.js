@@ -1,6 +1,5 @@
 function getDegree() {
-  let user = Meteor.user().profile;
-  return Degree.findOne({name: user.degree});
+  return Degree.findOne({_id: Router.current().params._id});
 }
 
 function getCompletedCourseIds() {

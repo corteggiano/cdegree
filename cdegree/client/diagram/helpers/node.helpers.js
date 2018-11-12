@@ -14,8 +14,7 @@ Template.node.helpers({
 
     // returns whether the current course is in progress
     hasChilds:function(){
-        let degreeName = Meteor.user().profile.degree;
-        let degree = Degree.findOne({name: degreeName});
+        let degree = Degree.findOne({_id: Router.current().params._id});
         let requirements = degree.sections.majorRequirements;
         let selectedElectives = Meteor.user().profile.selectedElectives;
         let selectedElectiveIds = selectedElectives.map(el => el[1]);
@@ -41,8 +40,7 @@ Template.node.helpers({
 
     childs:function(){
 
-        let degreeName = Meteor.user().profile.degree;
-        let degree = Degree.findOne({name: degreeName});
+        let degree = Degree.findOne({_id: Router.current().params._id});
         let requirements = degree.sections.majorRequirements;
         let selectedElectives = Meteor.user().profile.selectedElectives;
         let selectedElectiveIds = selectedElectives.map(el => el[1]);
