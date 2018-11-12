@@ -1,18 +1,21 @@
 <template name="diagram">
     <div class="visualization-key">
-        <b>Key:</b>
+        <b>KEY:</b>
         <div class="square square-complete"></div>
         Complete
         <div class="square square-incomplete"></div>
         Incomplete
+        <div class="square square-in-progress"></div>
+        In Progress
     </div>
-<div class="tree">
-<ul>
-    {{#each parents}}
-        <li>
-        {{>node}}
-        </li>
-    {{/each }}
-</ul>
-</div>
+    <div id="course-added" class="course-added">Course Added</div>
+    <div class="tree">
+        <ul>
+            {{#each parents}}
+            <li>
+                {{>node}}
+            </li>
+            {{/each }}
+        </ul>
+    </div>
 </template>
