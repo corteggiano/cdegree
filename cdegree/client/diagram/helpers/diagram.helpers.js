@@ -1,7 +1,5 @@
 if(!Meteor.user()) {
-    //Router.go("/");
-    //TODO remove
-    Meteor.loginWithPassword("ursula@ursula.com", "ursula");
+    Router.go("/");
 }
 
 Template.diagram.helpers({
