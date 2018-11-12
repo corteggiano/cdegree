@@ -1,5 +1,5 @@
 if(!Meteor.user()) {
-    //Router.go("/");
+    Router.go("/");
 }
 
 Template.diagram.helpers({
