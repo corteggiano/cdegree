@@ -28,3 +28,4 @@ babel-runtime
 accounts-password
 session
 iron:router
+accounts-ui

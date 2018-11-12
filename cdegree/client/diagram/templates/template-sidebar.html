@@ -1,8 +1,9 @@
 <template name="diagramSidebar">
   <div class="left-menu">
-    <a href="/choose" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
+    <a href="/choose" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+    <button class="btn btn-link hide-button"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
 
-    <hr/>
+      <hr/>
 
     <div class="degree">{{degree.name}}</div>
 
@@ -50,4 +51,5 @@
       {{/each }}
     </div>
   </div>
+    <button class="btn btn-link show-button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
 </template>
