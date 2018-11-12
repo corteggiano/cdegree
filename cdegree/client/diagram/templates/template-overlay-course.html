@@ -61,7 +61,12 @@
     </div>
     <div class="course-requisites">Credits: {{course.credits}}</div>
     <div class="course-requisites">Corequisites: {{#each course.coreqs}} {{this}} {{/each }}</div>
-    <div class="course-requisites">Prerequisites: {{#each course.prereqs}} {{this}} {{/each }}</div>
+    <div class="course-requisites">
+        <div>Prerequisites: {{#each course.prereqs}} {{this}} {{/each }}</div>
+        {{#if isSelectedElective}}
+            <button class="btn replace-elective login-btn replace-elective" data-id="{{id}}">Replace Elective</button>
+        {{/if}}
+    </div>
 
     {{/if}}
   </div>
