@@ -20,6 +20,7 @@ Template.overlayCourse.events({
       .delay(1200)
       .fadeOut(400);
   },
+
   'click .replace-elective': function(event) {
       let electiveId = Session.get("selectedCourse");
       let selectedElectives = Meteor.user().profile.selectedElectives;

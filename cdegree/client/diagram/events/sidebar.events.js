@@ -27,11 +27,13 @@ Template.diagramSidebar.events({
 
       $('.prereq').removeClass("prereq");
 
-      course.prereqs.forEach(function(id) {
+      if(course) {
+          course.prereqs.forEach(function(id) {
 
-          $('[data-id="'+id+'"]').addClass("prereq");
+              $('[data-id="'+id+'"]').addClass("prereq");
 
-      });
+          });
+      }
 
       Session.set('selectedCourse', event.currentTarget.dataset.id);
   },
