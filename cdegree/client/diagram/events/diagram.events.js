@@ -3,120 +3,133 @@ import dagre from 'cytoscape-dagre';
 
 cytoscape.use(dagre);
 
-Template.diagram.onRendered(function () {
-  let container = document.getElementById("cy");
+/**
+ * Get all the courses we want to show in the diagram, including required
+ * courses for the selected degree as well as any courses the user has
+ * selected to fulfill an elective.
+ *
+ * @returns {Array} of course objects from Meteor.
+ */
+function getAllCourses() {
+  let degree = Degree.findOne({_id: Router.current().params._id});
+  let requirements = degree.sections.majorRequirements;
+  let selectedElectives = Meteor.user().profile.selectedElectives;
+  let selectedElectiveIds = selectedElectives.map(el => el[1]);
+  requirements = requirements.concat(selectedElectiveIds);
 
-  data = {
-    container: container,
+  let courses = [];
+  requirements.forEach(function (element) {
+    let course = Course.findOne({id: element});
 
-    boxSelectionEnabled: false,
-    autounselectify: true,
+    if (course.credits > 2) {
+      courses.push(course);
+    }
+  });
 
-    layout: {
-      name: 'dagre'
-    },
+  return courses;
+}
 
-    style: [
-      {
-        selector: 'node',
-        style: {
-          'shape': 'roundrectangle',
-          'content': 'data(name)',
-          'height': 80,
-          'width': 150,
-          'text-opacity': 0.5,
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'text-wrap': 'wrap',
-          'text-max-width': 130,
-          'background-color': '#efefef'
-        }
-      },
+/**
+ * Get all the nodes to be shown in the diagram.
+ * @returns Node[]
+ */
+function getNodes() {
+  let nodes = [];
+  getAllCourses().forEach(course => {
+    nodes.push(formatNode(course));
+  });
 
-      {
-        selector: "node[status = 'incomplete']",
-        style: {
-          'color': 'white',
-          'background-color': '#448bb2',
-        }
-      },
-      {
-        selector: "node[status = 'ip']",
-        style: {}
-      },
+  console.log("nodes");
+  console.log(nodes);
 
-      {
-        selector: 'edge',
-        style: {
-          'curve-style': 'bezier',
-          'width': 4,
-          'target-arrow-shape': 'triangle',
-          'line-color': '#9dbaea',
-          'target-arrow-color': '#9dbaea'
-        }
-      }
-    ],
+  return nodes;
+}
 
-    elements: {
-      nodes: [
-        {
-          data: {
-            id: 'CS 1800',
-            name: 'Discrete Structures',
-            status: 'complete'
-          }
-        },
-        {data: {id: 'CS 2800', name: 'Logic and Computation', status: 'ip'}},
-        {
-          data: {
-            id: 'CS 2500',
-            name: 'Fundamentals of Computer Science',
-            status: 'complete'
-          }
-        },
-        {
-          data: {
-            id: 'CS 2510',
-            name: 'Fundamentals of Computer Science 2',
-            status: 'complete'
-          }
-        },
-        {
-          data: {
-            id: 'CS 3500',
-            name: 'Object Oriented Design',
-            status: 'incomplete'
-          }
-        },
-        {data: {id: 'CS 3650', name: 'Computer Systems', status: 'ip'}},
-        {
-          data: {
-            id: 'CS 3700',
-            name: 'Networks and Distributed Systems',
-            status: 'incomplete'
-          }
-        },
-        {data: {id: 'CS 3800', name: 'Theory of Computation', status: 'ip'}},
-        {
-          data: {
-            id: 'CS 4400',
-            name: 'Programming Languages',
-            status: 'incomplete'
-          }
-        },
-      ],
-      edges: [
-        {data: {source: 'CS 1800', target: 'CS 2800'}},
-        {data: {source: 'CS 2500', target: 'CS 2510'}},
-        {data: {source: 'CS 2500', target: 'CS 3500'}},
-        {data: {source: 'CS 2500', target: 'CS 3650'}},
-        {data: {source: 'CS 2500', target: 'CS 3700'}},
-        {data: {source: 'CS 3500', target: 'CS 4400'}},
-        {data: {source: 'CS 3800', target: 'CS 4400'}},
+/**
+ * A node representing a course that will be rendered in the diagram.
+ * @typedef {{data: {id, name, status: String}}} Node
+ */
 
-      ]
-    },
+/**
+ * Format this course as a node for the diagram.
+ * @param course {Object}
+ * @returns Node
+ */
+function formatNode(course) {
+  return {
+    data: {
+      id: course.id,
+      name: course.name,
+      status: getCourseStatus(course)
+    }
+  }
+}
+
+/**
+ * Determine the completion status of the given course.
+ *
+ * @param {Object} course whose status we're trying to determine
+ * @return {String} complete|ip|incomplete.
+ */
+function getCourseStatus(course) {
+  let userProfile = Meteor.user().profile;
+
+  if (userProfile.inProgressCourses.includes(course.id)) {
+    return 'ip';
+  }
+  if (userProfile.completedReqCourses.includes(course.id)) {
+    return 'complete';
+  }
+  return 'incomplete';
+}
+
+/**
+ * Represents an edge between two Nodes in a diagram.
+ * @typedef {{data: {source: String, target: String}}} Edge
+ */
+
+/**
+ * Get all the edges between nodes in the diagram. Edges go from a course's
+ * prerequisite to that course.
+ * @returns Edge[]
+ */
+function getEdges() {
+  let edges = [];
+  getAllCourses().forEach(course => {
+    edges = edges.concat(formatEdges(course));
+  });
+
+  return edges;
+}
+
+/**
+ * Gets the list of edges from the given course's prerequisites to this course.
+ * @param course
+ * @returns Edge[]
+ */
+function formatEdges(course) {
+  let edges = [];
+  // assumes that prereqs are all at least 4 credits :/
+  course.prereqs.forEach(prereq => edges.push(createEdge(prereq, course.id)));
+  return edges;
+}
+
+/**
+ * Creates an edge from the prerequisite course to the target course.
+ * @param source {String} the id of the course
+ * @param target {String}
+ * @returns Edge
+ */
+function createEdge(source, target) {
+  return {
+    data: {
+      source: source,
+      target: target
+    }
   };
+}
+
+Template.diagram.onRendered(function () {
 
   // cy is a global variable on purpose :O
   cy = window.cy = cytoscape({
@@ -157,7 +170,8 @@ Template.diagram.onRendered(function () {
       {
         selector: "node[status = 'ip']",
         style: {
-          'background-image': 'images/stripes.png',
+          'background-color': '#e2eef5',
+          'background-image': '/images/stripes.png',
           'background-fit': 'cover'
         }
       },
@@ -165,71 +179,18 @@ Template.diagram.onRendered(function () {
       {
         selector: 'edge',
         style: {
-          'curve-style': 'bezier',
+          // 'curve-style': 'bezier',
           'width': 2,
+          'curve-style': 'unbundled-bezier',
+          'control-point-distance': '10px',
           'target-arrow-shape': 'triangle',
         }
       }
     ],
 
     elements: {
-      nodes: [
-        {
-          data: {
-            id: 'CS 1800',
-            name: 'Discrete Structures',
-            status: 'complete'
-          }
-        },
-        {data: {id: 'CS 2800', name: 'Logic and Computation', status: 'ip'}},
-        {
-          data: {
-            id: 'CS 2500',
-            name: 'Fundamentals of Computer Science',
-            status: 'complete'
-          }
-        },
-        {
-          data: {
-            id: 'CS 2510',
-            name: 'Fundamentals of Computer Science 2',
-            status: 'complete'
-          }
-        },
-        {
-          data: {
-            id: 'CS 3500',
-            name: 'Object Oriented Design',
-            status: 'incomplete'
-          }
-        },
-        {data: {id: 'CS 3650', name: 'Computer Systems', status: 'ip'}},
-        {
-          data: {
-            id: 'CS 3700',
-            name: 'Networks and Distributed Systems',
-            status: 'incomplete'
-          }
-        },
-        {data: {id: 'CS 3800', name: 'Theory of Computation', status: 'ip'}},
-        {
-          data: {
-            id: 'CS 4400',
-            name: 'Programming Languages',
-            status: 'incomplete'
-          }
-        },
-      ],
-      edges: [
-        {data: {source: 'CS 1800', target: 'CS 2800'}},
-        {data: {source: 'CS 2500', target: 'CS 2510'}},
-        {data: {source: 'CS 2510', target: 'CS 3500'}},
-        {data: {source: 'CS 2500', target: 'CS 3650'}},
-        {data: {source: 'CS 2500', target: 'CS 3700'}},
-        {data: {source: 'CS 3500', target: 'CS 4400'}},
-        {data: {source: 'CS 3800', target: 'CS 4400'}},
-
-      ]
+      nodes: getNodes(),
+      edges: getEdges() // todo apply topological sort to these
     },
   });
 
