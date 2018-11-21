@@ -1,3 +1,76 @@
+/**
+ * Add the course with the given id to the diagram.
+ * @param {String} id the course id to add to the diagram.
+ */
+function addToDiagram(id) {
+  console.log("add", id);
+  let toAdd = [];
+
+  let course = Course.findOne({id: id});
+
+  // create node for id
+  toAdd.push(formatAsNodeToAdd(course));
+
+  // create edges for id
+  course.prereqs.forEach(prereq => {
+    toAdd.push(formatAsEdgeToAdd(prereq, course.id));
+  });
+
+  console.log(toAdd);
+
+  cy.add(toAdd);
+}
+
+/**
+ * Format this course as a node for the diagram.
+ * @param {Object} course
+ * @returns {{group: "nodes", data: {id: String, name: String, status: String}}}
+ */
+function formatAsNodeToAdd(course) {
+  return {
+    group: "nodes",
+    data: {
+      id: course.id,
+      name: course.name,
+      status: getCourseStatus(course)
+    }
+  };
+}
+
+/**
+ * Format the edges from this course's prerequisites to this course so that
+ * they can be added to the diagram.
+ * @param {String} source
+ * @param {String} target
+ */
+function formatAsEdgeToAdd(source, target) {
+  return {
+    group: "edges",
+    data: {
+      source: source,
+      target: target
+    }
+  };
+}
+
+/**
+ * Determine the completion status of the given course.
+ *
+ * @param {Object} course whose status we're trying to determine
+ * @return {String} complete|ip|incomplete.
+ */
+function getCourseStatus(course) {
+  let userProfile = Meteor.user().profile;
+
+  if (userProfile.inProgressCourses.includes(course.id)) {
+    return 'ip';
+  }
+  if (userProfile.completedReqCourses.includes(course.id)) {
+    return 'complete';
+  }
+  return 'incomplete';
+}
+
 Template.overlayCourse.events({
   "click .overlay-close": function(event) {
     $("#overlay").fadeOut();
@@ -5,10 +78,12 @@ Template.overlayCourse.events({
   },
 
   "click .select-elective": function(event) {
+    let courseId = event.currentTarget.dataset.id;
+
     let electiveType = parseInt(Session.get("selectedCourse"));
     let profile = Meteor.user().profile;
     let newElectives = profile.selectedElectives.slice();
-    newElectives.push([electiveType, event.currentTarget.dataset.id]);
+    newElectives.push([electiveType, courseId]);
     profile["selectedElectives"] = newElectives;
     Meteor.users.update(
       { _id: Meteor.user()._id },
@@ -19,6 +94,7 @@ Template.overlayCourse.events({
       .fadeIn(100)
       .delay(1200)
       .fadeOut(400);
+    addToDiagram(courseId);
   },
 
   'click .replace-elective': function(event) {
