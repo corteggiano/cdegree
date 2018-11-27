@@ -3,6 +3,8 @@ Template.diagramSidebar.events({
     $("#overlay").fadeIn();
     Session.set("selectedCourse", event.currentTarget.dataset.id);
   },
+
+  // filter list of classes in sidebar by search
   "keyup #search-class": function(event) {
     let input, filter, d, i;
     input = document.getElementById("search-class");
@@ -20,24 +22,27 @@ Template.diagramSidebar.events({
     }
   },
 
+  // open course info when user clicks a course name in the sidebar
   'click .classes': function(event) {
       $('#overlay').fadeIn();
 
-      var course = Course.findOne({id: event.currentTarget.dataset.id});
-
-      $('.prereq').removeClass("prereq");
-
-      if(course) {
-          course.prereqs.forEach(function(id) {
-
-              $('[data-id="'+id+'"]').addClass("prereq");
-
-          });
-      }
+      // highlight prerequisites for this course
+      // var course = Course.findOne({id: event.currentTarget.dataset.id});
+      //
+      // $('.prereq').removeClass("prereq");
+      //
+      // if(course) {
+      //     course.prereqs.forEach(function(id) {
+      //
+      //         $('[data-id="'+id+'"]').addClass("prereq");
+      //
+      //     });
+      // }
 
       Session.set('selectedCourse', event.currentTarget.dataset.id);
   },
 
+  // collapse the sidebar
   'click .hide-button': function(event) {
       var sw = $('#sidebar').outerWidth();
       $('#sidebar').css("margin-left", -sw);
@@ -53,6 +58,7 @@ Template.diagramSidebar.events({
       $('.show-button').fadeIn();
   },
 
+  // open the sidebar
   'click .show-button': function(event) {
       $('#sidebar').css("margin-left", "0");
       $('#content').addClass("col-sm-8");
@@ -66,5 +72,4 @@ Template.diagramSidebar.events({
 
       $('.show-button').hide();
   },
-
 });

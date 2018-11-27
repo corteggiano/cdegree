@@ -177,7 +177,7 @@ Meteor.startup(() => {
             "id": "CS 3000",
             "name": "Algorithms and Data",
             "credits": 4,
-            "prereqs": ["CS 1500"],
+            "prereqs": ["CS 2500"],
             "coreqs": [],
             "description": "Introduces the basic principles and techniques for the design, analysis, and implementation of efficient algorithms and data representations. Discusses asymptotic analysis and formal methods for establishing the correctness of algorithms. Considers divide-and-conquer algorithms, graph traversal algorithms, and optimization techniques. Introduces information theory and covers the fundamental structures for representing data. Examines flat and hierarchical representations, dynamic data representations, and data compression. Concludes with a discussion of the relationship of the topics in this course to complexity theory and the notion of the hardness of problems."
         },
@@ -225,7 +225,7 @@ Meteor.startup(() => {
             "id": "CS 4500",
             "name": "Software Development",
             "credits": 4,
-            "prereqs": ["CS 3500", "ENGL 1111"],
+            "prereqs": ["CS 3500", "ENGW 1111"],
             "coreqs": ["CS 4501"],
             "description": "Considers software development as a systematic process involving specification, design, documentation, implementation, testing, and maintenance. Examines software process models; methods for software specification; modularity, abstraction, and software reuse; and issues of software quality. Students, possibly working in groups, design, document, implement, test, and modify software projects. "
         },

@@ -66,14 +66,10 @@ Template.overlayCourse.helpers({
       prerequisites.push(prereq);
     });
 
-    console.log(this.id);
-    console.log(prerequisites);
-
     // if no prerequisites, fine to add
     if (prerequisites.length === 0) {
       return false;
     }
-
 
     for (let i = 0; i < prerequisites.length; i++) {
       let prereq = prerequisites[i];

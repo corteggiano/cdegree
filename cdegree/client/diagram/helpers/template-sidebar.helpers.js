@@ -18,8 +18,7 @@ function getNumCompletedCredits() {
 function getRemainingElectiveIds() {
   let user = Meteor.user().profile;
   let electives = Degree.findOne({name: user.degree}).sections.electives.slice();
-  let userCompletedElectives = user.completedElectives.slice().map(
-      el => el[0]);
+  let userCompletedElectives = user.completedElectives.slice().map(el => el[0]);
   let userSelectedElectives = user.selectedElectives.map(el => el[0]);
 
   userCompletedElectives.forEach(el => {
